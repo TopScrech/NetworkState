@@ -23,7 +23,7 @@ Download and include the `NetworkState` folder and files in your codebase.
 
 Import `NetworkState` into your `View`
 
-```
+```swift
 import NetworkState
 ```
 
@@ -38,7 +38,7 @@ Here's the list of the awesome features `NetworkState` has:
 
 First create a `NetworkState` object and add it as an `environmentObject` to your root `View`.
 
-```
+```swift
 import SwiftUI
 import NetworkState
 
@@ -59,16 +59,16 @@ struct NetworkStateDemoApp: App {
 
 Grab that `EnvironmentObject` (1.) and use the `isOnline` `@Published` variable (2.) to render out your UI. Optionally you could refres/check the connectivity with `isConnected()`. 
 
-```
+```swift
 import SwiftUI
 import NetworkState
 
 struct ContentView: View {
     
     // 1.
-    @EnvironmentObject var networkState: NetworkState
+    @EnvironmentObject private var networkState: NetworkState
     
-    @State var isOnline = false
+    @State private var isOnline = false
     
     var body: some View {
         VStack(spacing: 12) {
@@ -83,20 +83,19 @@ struct ContentView: View {
             // Image(systemName: networkState.isOnline ? "wifi" : "wifi.slash").font(.largeTitle)
             
             // 3.
-            Button(action: {
+            Button {
                 if let isConnected = networkState.isConnected(), isConnected {
                     isOnline = isConnected
                 } else {
                     isOnline = false
                 }
-            }, label: {
+            } label: {
                 Text("Refresh manually")
-            })
+            }
             
             if isOnline {
                 Text("Showing this text only after we tapped the Button and if network is Connected")
             }
-            
         }
     }
 }
@@ -123,5 +122,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
